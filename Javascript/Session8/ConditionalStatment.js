@@ -70,36 +70,16 @@ let month = 1;
 //     console.log("Default getting executed");
 // }
 
-let browserName = 'Chrome';
+let browserName = "Chrome";
 
 switch (browserName) {
-    case "Chrome": console.log("Invoke Chrome Browser"); break;
-    case "Firefox":
-        console.log("Invoke Firefox Browser");
-        break;
-    case "MSedge":
-        console.log("Invoke MSedge Browser");
-        break;
+  case "Chrome":
+    console.log("Invoke Chrome Browser");
+    break;
+  case "Firefox":
+    console.log("Invoke Firefox Browser");
+    break;
+  case "MSedge":
+    console.log("Invoke MSedge Browser");
+    break;
 }
-
-/**
- * Reverse the digits of a number.
- * Example:
- *  Input  -> 123456768
- *  Output -> 867654321
- */
-function reverseNumber(num) {
-    let reversed = 0;
-
-    while (num > 0) {
-        const lastDigit = num % 10;
-        reversed = reversed * 10 + lastDigit;
-        num = Math.floor(num / 10);
-    }
-
-    return reversed;
-}
-
-const originalNumber = 123456768;
-const reversedNumber = reverseNumber(originalNumber);
-console.log(`Original: ${originalNumber}, Reversed: ${reversedNumber}`);
