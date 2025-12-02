@@ -5,7 +5,7 @@ export class BasePage {
     this.page = page;
   }
 
-  async goto(url){
+  async goto(url) {
     console.log(`Navigate to ${url}`);
     await this.page.goto(url);
   }
@@ -15,9 +15,10 @@ export class BasePage {
     return this.page.locator(locatorString);
   }
 
-  async clickOnElement(locatorString){
+  async clickOnElement(locatorString) {
     console.log(`Click on ${locatorString}`);
-    await this.getLocator(locatorString).click();
+    const locator = this.getLocator(locatorString);
+    await locator.click();
   }
 
   async fill(locatorString, textToType) {
@@ -30,5 +31,21 @@ export class BasePage {
     await this.getLocator(locatorString).pressSequentially(textToType, {
       delay: delayTime,
     });
+  }
+
+  async uploadFile(locator, filePath) {
+    const fileChooser = this.page.waitForEvent("filechooser");
+    await this.page.locator(locator).click();
+    const fileChooserEvent = await fileChooser;
+    await fileChooserEvent.setFiles(filePath);
+  }
+
+  async downloadFile(fileLocator,filePath) {
+    const download = this.page.waitForEvent("download");
+    await this.page.locator(fileLocator).click();
+    const downloadEvent = await download;
+    await downloadEvent.saveAs(
+      filePath + downloadEvent.suggestedFilename()
+    );
   }
 }
