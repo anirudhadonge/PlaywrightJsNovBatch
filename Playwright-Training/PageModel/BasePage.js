@@ -40,12 +40,43 @@ export class BasePage {
     await fileChooserEvent.setFiles(filePath);
   }
 
-  async downloadFile(fileLocator,filePath) {
+  async downloadFile(fileLocator, filePath) {
     const download = this.page.waitForEvent("download");
     await this.page.locator(fileLocator).click();
     const downloadEvent = await download;
-    await downloadEvent.saveAs(
-      filePath + downloadEvent.suggestedFilename()
-    );
+    await downloadEvent.saveAs(filePath + downloadEvent.suggestedFilename());
+  }
+
+  async handelJSAlert(locator) {
+    this.page.on("dialog", async (dialog) => {
+      console.log(dialog.message());
+      //await page.waitForTimeout(3000);
+      await dialog.accept();
+    });
+    await this.page.locator(locator).click();
+  }
+
+  async acceptJsconfirmDialog(locator) {
+    this.page.on("dialog", async (dialog) => {
+      console.log(dialog.message());
+      await this.page.waitForTimeout(3000);
+      await dialog.accept();
+    });
+    await this.page.locator(locator).click();
+  }
+
+  async dismissJsconfirmDialog(locator) {
+    this.page.on("dialog", async (dialog) => {
+      console.log(dialog.message());
+      await this.page.waitForTimeout(3000);
+      await dialog.dismiss();
+    });
+    await this.page.locator(locator).click();
+  }
+
+  async clickToGetNewPage(locator,context) {
+    const newPageEvent = context.waitForEvent("page");
+    await this.page.locator(locator).click();
+    return await newPageEvent;
   }
 }
