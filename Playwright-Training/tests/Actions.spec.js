@@ -14,6 +14,9 @@
  * Basic Authencation
  * Drag and Drop
  */
+/**
+ * Whenever we want assert of validate a condition we will use expect method
+ */
 
 import { test, expect, chromium } from "@playwright/test";
 import { BasePage } from "../PageModel/BasePage";
@@ -38,13 +41,16 @@ test("Click Test", async ({ page }) => {
   await page.waitForTimeout(5000);
 });
 
-test("Checkbox test demo", async ({ page }) => {
+test.only("Checkbox test demo", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/checkboxes"]').click();
   await page.waitForTimeout(5000);
   await page.locator("#checkboxes input").nth(0).check();
-  await page.waitForTimeout(5000);
   await page.locator("#checkboxes input").nth(0).uncheck();
+  await expect.soft(page.locator("#checkboxes input").nth(0)).toBeChecked();
+  await page.waitForTimeout(5000);
+  await page.locator("#checkboxes input").nth(1).uncheck();
+  await expect.soft(page.locator("#checkboxes input").nth(1).isChecked()).toBeFalsy();
   await page.waitForTimeout(5000);
 });
 
@@ -187,10 +193,10 @@ test("Js Prompt Test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/javascript_alerts"]').click();
   await page.waitForTimeout(3000);
-  page.on('dialog',async (dialog)=>{
+  page.on("dialog", async (dialog) => {
     console.log(dialog.message());
     await page.waitForTimeout(3000);
-    await dialog.accept('Demo');
+    await dialog.accept("Demo");
   });
   await page.locator('[onclick="jsPrompt()"]').click();
   // let basePage = new BasePage(page);
@@ -199,25 +205,72 @@ test("Js Prompt Test", async ({ page }) => {
   await page.waitForTimeout(3000);
 });
 
-test('Browser, Browser-Context, Page',async()=>{
+test("Browser, Browser-Context, Page", async () => {
   const browser = await chromium.launch({
-    headless:false,
+    headless: false,
   });
   const context = await browser.newContext();
   const page = await context.newPage();
-  await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+  await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
   await page.waitForTimeout(3000);
-})
+});
 
-test.only('Multi Window Test',async({context,page})=>{
+test("Multi Window Test", async ({ context, page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/windows"]').click();
   // const newPageEvent = context.waitForEvent('page');
   // await page.locator('[href="/windows/new"]').click();
   // const newPage = await newPageEvent;
   let basePage = new BasePage(page);
-  const newPage =await basePage.clickToGetNewPage('[href="/windows/new"]',context);
-  await page.waitForTimeout(3000);
-  await expect(newPage.locator('.example h3')).toHaveText('New Window');
-  await expect(page.locator('.example h3')).toHaveText('Opening a new window');
+  const newPage = await basePage.clickToGetNewPage(
+    '[href="/windows/new"]',
+    context
+  );
+  await page.waitForLoadState('load')
+  //load : all resources of the page like images, scripts , css are fully loaded.
+  //domcontentloaded: All the Html elements are completed loaded 
+  // networkidle: 
+ await newPage.locator(".example h3").waitFor({
+  state :''
+ })
+  await expect(newPage.locator(".example h3")).toHaveText("New Window");
+  await expect(page.locator(".example h3")).toHaveText("Opening a new window");
+});
+
+test("Digest Authentication", async () => {
+  const browser = await chromium.launch({
+    headless:false,
+  })
+  const context = await browser.newContext({
+    httpCredentials:{
+      username:'admin',
+      password:'admin'
+    }
+  })
+  const page = await context.newPage();
+  await page.goto("https://the-internet.herokuapp.com/");
+  await page.locator('[href = "/digest_auth"]').click();
+  const displayText = await page.locator('.example p').textContent()
+  console.log(displayText);
+  await expect(page.locator('.example p')).toContainText('Congratulations! You must have the proper credentials.')
+});
+
+
+test('Wait demo test',async({page})=>{
+  await page.goto('https://www.automationexercise.com/');
+  await page.waitForLoadState('networkidle');
+  await page.locator('[href="/login"]').click();
+  await page.locator('[data-qa="login-email"]').fill('anirudha.donge@gmail.com');
+  await page.locator('[data-qa="login-password"]').fill('password25');
+  await page.locator('[data-qa="login-button"]').click();
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('[href="/logout"]')).toBeVisible();
 })
+
+test('Assertion example ',async({page})=>{
+  await page.goto("https://the-internet.herokuapp.com/");
+  await expect(page.locator('[href="/login"]')).toBeVisible(); // Retrying Assertion
+  let value = 10;
+  expect(value==10).toBeTruthy(); //Non Retrying Assertion
+})
+

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { PassThrough } from 'stream';
 
 /**
  * Read environment variables from file.
@@ -16,7 +17,7 @@ export default defineConfig({
   testDir: './tests',
   timeout:60000,
   expect:{
-    timeout:5000,
+    timeout:10000,
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -37,6 +38,10 @@ export default defineConfig({
     trace: 'on-first-retry',
     browserName: 'chromium',
     headless:false,
+    // httpCredentials:{
+    //   username:'admin',
+    //   password:'admin'
+    // }
   },
 
   /* Configure projects for major browsers */
