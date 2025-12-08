@@ -15,7 +15,7 @@ import { PassThrough } from 'stream';
  */
 export default defineConfig({
   testDir: './tests',
-  timeout:60000,
+  timeout:30000,
   expect:{
     timeout:10000,
   },

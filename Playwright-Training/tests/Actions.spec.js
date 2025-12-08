@@ -21,7 +21,7 @@
 import { test, expect, chromium } from "@playwright/test";
 import { BasePage } from "../PageModel/BasePage";
 
-test("Click Test", async ({ page }) => {
+test("@action Click Test", async ({ page }) => {
   let basePage = new BasePage(page);
   await basePage.goto("https://the-internet.herokuapp.com/");
   await basePage.clickOnElement('[href="/login"]');
@@ -41,7 +41,7 @@ test("Click Test", async ({ page }) => {
   await page.waitForTimeout(5000);
 });
 
-test.only("Checkbox test demo", async ({ page }) => {
+test("@actionCheckbox test demo", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/checkboxes"]').click();
   await page.waitForTimeout(5000);
@@ -54,7 +54,7 @@ test.only("Checkbox test demo", async ({ page }) => {
   await page.waitForTimeout(5000);
 });
 
-test("Iframe and frames test", async ({ page }) => {
+test("@action Iframe and frames test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/frames"]').click();
   await page.locator('[href="/iframe"]').click();
@@ -65,7 +65,9 @@ test("Iframe and frames test", async ({ page }) => {
   await page.waitForTimeout(5000);
 });
 
-test("Dropdown selection test", async ({ page }) => {
+test("Dropdown selection test",{
+  tag:"@dropdown"
+}, async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/dropdown"]').click();
   await page.waitForTimeout(3000);

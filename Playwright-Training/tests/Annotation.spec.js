@@ -6,6 +6,14 @@
  * After All
  * step
  */
+/**
+ * only
+ * slow 
+ * skip
+ */
+/**
+ * 
+ */
 import { test, expect } from "@playwright/test";
 
 test.describe("Checkbox and Iframe test grouped", async () => {
@@ -36,9 +44,11 @@ test.describe("Checkbox and Iframe test grouped", async () => {
   //   await basePage.fill("#password", "SuperSecretPassword!");
   //  });
 
-  test.only("Checkbox test demo", async ({ page }) => {
+  test("@annotation @smoke Checkbox test demo", async ({ page }) => {
+
     console.log("Checkbox test start");
     await test.step("Click on Checkbox link on the home page", async () => {
+      await page.waitForTimeout(5000);
       await page.locator('[href="/checkboxes"]').click();
     });
 
@@ -53,26 +63,32 @@ test.describe("Checkbox and Iframe test grouped", async () => {
     });
   });
 
-  test("Iframe and frames test", async ({ page }) => {
-    console.log("Iframe test starts");
-    await page.locator('[href="/frames"]').click();
-    await page.locator('[href="/iframe"]').click();
-    const framelocator = page.frameLocator("#mce_0_ifr");
-    await expect(framelocator.locator("#tinymce p")).toHaveText(
-      "Your content goes here."
-    );
-    console.log("Iframe test Ends");
-  });
+  test("@annotation @regression Iframe and frames test", async ({ page }) => {
+  // //   console.log("Iframe test starts");
+  // //   await page.locator('[href="/frames"]').click();
+  // //   await page.locator('[href="/iframe"]').click();
+  // //   const framelocator = page.frameLocator("#mce_0_ifr");
+  // //   await expect(framelocator.locator("#tinymce p")).toHaveText(
+  // //     "Your content goes here."
+  // //   );
+  // //   console.log("Iframe test Ends");
+  // });
+});
 });
 
-test("Hover test", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com/");
-  await page.locator('[href="/hovers"]').click();
-  await page.waitForTimeout(2000);
-  await page.locator(".figure img").nth(0).hover();
-  await page.waitForTimeout(2000);
-  await page.locator(".figure img").nth(1).hover();
-  await page.waitForTimeout(2000);
-  await page.locator(".figure img").nth(2).hover();
-  await page.waitForTimeout(2000);
-});
+// test("@annotation Hover test", async ({ page }) => {
+//   await page.goto("https://the-internet.herokuapp.com/");
+//   await page.locator('[href="/hovers"]').click();
+//   await page.waitForTimeout(2000);
+//   await page.locator(".figure img").nth(0).hover();
+//   await page.waitForTimeout(2000);
+//   await page.locator(".figure img").nth(1).hover();
+//   await page.waitForTimeout(2000);
+//   await page.locator(".figure img").nth(2).hover();
+//   await page.waitForTimeout(2000);
+// });
+
+
+// test("<tags> <description>",async()=>{
+//   <body></body>
+// })

@@ -33,7 +33,7 @@ test("Test for Locator by placeholder", async ({ page }) => {
   await page.waitForTimeout(10000);
 });
 
-test("Test for Locator by Text", async ({ page }) => {
+test("@locator Test for Locator by Text", async ({ page }) => {
   await page.goto("https://selectorshub.com/xpath-practice-page/");
   await page.waitForTimeout(5000);
   await page.getByText(" SelectorsHub Youtube Channel  ").nth(0).click();
@@ -41,7 +41,7 @@ test("Test for Locator by Text", async ({ page }) => {
   await page.waitForTimeout(10000);
 });
 
-test("Test for GetByAltText", async ({ page }) => {
+test("@locator Test for GetByAltText", async ({ page }) => {
   await page.goto("https://playwright.dev/");
   await page.waitForTimeout(5000);
   await page.getByText("Get started").click();
@@ -52,7 +52,7 @@ test("Test for GetByAltText", async ({ page }) => {
   await page.waitForTimeout(10000);
 });
 
-test("test for getByTitle", async ({ page }) => {
+test("@locator test for getByTitle", async ({ page }) => {
   await page.goto("https://selectorshub.com/xpath-practice-page/");
   await page.waitForTimeout(5000);
   await page.getByTitle("Password").fill("xyz@xyz.com");
