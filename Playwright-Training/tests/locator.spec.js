@@ -59,7 +59,7 @@ test("@locator test for getByTitle", async ({ page }) => {
    await page.waitForTimeout(5000);
 });
 
-test.only("Test for Locator", async ({ page }) => {
+test("Test for Locator", async ({ page }) => {
   await page.goto("https://playwright.dev/");
   await page.waitForTimeout(5000);
   await page.locator(".getStarted_Sjon").click();
