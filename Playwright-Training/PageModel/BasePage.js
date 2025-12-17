@@ -1,6 +1,8 @@
 import { text } from "stream/consumers";
 
 export class BasePage {
+  loginToAppLink = '[href="/login"]';
+
   constructor(page) {
     this.page = page;
   }
@@ -78,5 +80,9 @@ export class BasePage {
     const newPageEvent = context.waitForEvent("page");
     await this.page.locator(locator).click();
     return await newPageEvent;
+  }
+
+  async clickLogin(){
+    await this.page.locator(this.loginToAppLink).click();
   }
 }

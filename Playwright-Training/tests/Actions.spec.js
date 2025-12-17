@@ -131,7 +131,7 @@ test("Hover test", async ({ page }) => {
   await page.waitForTimeout(2000);
 });
 
-test("Drag and Drop", async ({ page }) => {
+test("@dragDrop Drag and Drop", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/drag_and_drop"]').click();
   await page.waitForTimeout(2000);
@@ -139,7 +139,7 @@ test("Drag and Drop", async ({ page }) => {
   await page.waitForTimeout(5000);
 });
 
-test("Js Alert test", async ({ page }) => {
+test("@dragDrop Js Alert test", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
   await page.locator('[href="/javascript_alerts"]').click();
   await page.waitForTimeout(3000);

@@ -25,7 +25,7 @@ test.describe("Checkbox and Iframe test grouped", async () => {
   test.beforeEach("Before Each Method", async ({ page }) => {
     await test.step("Navigating to https://the-internet.herokuapp.com/", async () => {
       console.log("Before Each test getting executed");
-      await page.goto("https://the-internet.herokuapp.com/");
+      await page.goto("/");
     });
   });
 
