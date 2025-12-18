@@ -9,7 +9,7 @@ const addToCart = JSON.parse(
 );
 
 console.log(addToCart);
-
+console.log("This is the second commit");
 let loginPage;
 let homePage;
 test("Add to Cart Test",async({page})=>{
