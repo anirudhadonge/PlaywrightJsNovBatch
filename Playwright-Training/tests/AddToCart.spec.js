@@ -2,6 +2,7 @@
 import { extentedTest } from "../Fixtures/fixture";
 import { HomePage } from "../PageModel/HomePage";
 import { LoginPage } from "../PageModel/LoginPage";
+import {test} from '@playwright/test'
 import fs from "fs";
 
 const addToCart = JSON.parse(
