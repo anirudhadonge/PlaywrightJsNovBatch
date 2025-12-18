@@ -10,6 +10,7 @@ const addToCart = JSON.parse(
 
 console.log(addToCart);
 console.log("This is the second commit");
+console.log("New Committe added");
 let loginPage;
 let homePage;
 test("Add to Cart Test",async({page})=>{
