@@ -10,20 +10,20 @@ const addToCart = JSON.parse(
 
 console.log(addToCart);
 
-// let loginPage;
-// let homePage;
-// test("Add to Cart Test",async({page})=>{
-//     loginPage = new LoginPage(page);
-//     await loginPage.goto(process.env.URL);
-//     await loginPage.clickLogin();
-//     await loginPage.enterUserName(process.env.USERNAME);
-//     await loginPage.enterPassword(process.env.PASSWORD);
-//     await loginPage.signIn();
-//     homePage = new HomePage(page);
-//     await homePage.addToCart(addToCart['productName']);
-//     //await page.waitForTimeout(5000);
-//     await homePage.validateAddtoCart(addToCart['message']);
-// })
+let loginPage;
+let homePage;
+test("Add to Cart Test",async({page})=>{
+    loginPage = new LoginPage(page);
+    await loginPage.goto(process.env.URL);
+    await loginPage.clickLogin();
+    await loginPage.enterUserName(process.env.USERNAME);
+    await loginPage.enterPassword(process.env.PASSWORD);
+    await loginPage.signIn();
+    homePage = new HomePage(page);
+    await homePage.addToCart(addToCart['productName']);
+    //await page.waitForTimeout(5000);
+    await homePage.validateAddtoCart(addToCart['message']);
+})
 
 extentedTest("Test with Fixture", async ({ loginPage, homePage }) => {
   await loginPage.clickLogin();
